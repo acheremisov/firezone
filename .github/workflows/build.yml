@@ -23,12 +23,12 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
           short-description: ${{ github.event.repository.description }}
   build:
-    runs-on: ubuntu-latest
+       runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
         with:
           repository: firezone/firezone
-
+          
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v2
 
@@ -45,6 +45,7 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           push: true
+          file: Dockerfile.prod
           build-args: |
             VERSION=${{ github.ref_name }}
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/firezone:${{ github.ref_name }}
